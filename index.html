@@ -1,89 +1,182 @@
 <!DOCTYPE html>
+
 <html lang="sk">
+
 <head>
+
   <meta charset="UTF-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Cink-Cink</title>
 
   <style>
+
     body {
+
       background: #111827;
+
       color: white;
+
       font-family: Arial;
+
       padding: 20px;
+
       margin: 0;
+
     }
 
     .box {
+
       background: #1f2937;
+
       padding: 20px;
+
       border-radius: 16px;
+
       max-width: 500px;
+
       margin: auto;
+
     }
 
     h1 {
+
       text-align: center;
+
       color: #60a5fa;
+
     }
 
-    input {
+    select, input {
+
       width: 100%;
+
       padding: 12px;
+
       margin-top: 10px;
+
       border-radius: 10px;
+
       border: none;
+
       font-size: 16px;
+
     }
 
     button {
+
       width: 100%;
+
       padding: 14px;
+
       margin-top: 15px;
+
       background: #2563eb;
+
       color: white;
+
       border: none;
+
       border-radius: 10px;
+
       font-size: 16px;
+
     }
 
     .result {
+
       margin-top: 20px;
+
       font-size: 22px;
+
       text-align: center;
+
     }
+
+    .shift-info {
+
+      margin-top: 10px;
+
+      text-align: center;
+
+      color: #9ca3af;
+
+    }
+
   </style>
+
 </head>
 
 <body>
 
 <div class="box">
+
   <h1>💸 Cink-Cink</h1>
 
-  <input type="number" id="hours" placeholder="Odpracované hodiny">
+  <select id="shift">
+
+    <option value="8.5">Ranná (8.5h)</option>
+
+    <option value="8.5">Poobedná (8.5h)</option>
+
+    <option value="0">Voľno</option>
+
+  </select>
+
+  <input type="number" id="days" placeholder="Počet odpracovaných dní">
 
   <input type="number" id="rate" placeholder="Hodinová mzda (€)">
 
   <button onclick="calculate()">
+
     Vypočítať výplatu
+
   </button>
 
-  <div class="result" id="result">
-    Výplata: 0 €
+  <div class="shift-info" id="hoursInfo">
+
+    Odpracované hodiny: 0 h
+
   </div>
+
+  <div class="result" id="result">
+
+    Výplata: 0 €
+
+  </div>
+
 </div>
 
 <script>
-  function calculate() {
-    let hours = document.getElementById("hours").value;
-    let rate = document.getElementById("rate").value;
 
-    let total = hours * rate;
+function calculate() {
 
-    document.getElementById("result").innerHTML =
-      "Výplata: " + total.toFixed(2) + " €";
-  }
-</script>
+  let shiftHours =
+
+    parseFloat(document.getElementById("shift").value);
+
+  let days =
+
+    parseFloat(document.getElementById("days").value);
+
+  let rate =
+
+    parseFloat(document.getElementById("rate").value);
+
+  let totalHours = shiftHours * days;
+
+  let totalPay = totalHours * rate;
+
+  document.getElementById("hoursInfo").innerHTML =
+
+    "Odpracované hodiny: " + totalHours + " h";
+
+  document.getElementById("result").innerHTML =
+
+    "Výplata: " + totalPay.toFixed(2) + " €";
+  </script>
 
 </body>
+
 </html>
