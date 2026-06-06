@@ -88,8 +88,10 @@ margin-top:15px;
 </select>
 
 <input type="number" id="days" placeholder="Počet dní">
+<input type="time" id="start">
 
-<input type="number" id="rate" placeholder="Hodinová mzda (€)">
+<input type="time" id="end">
+  <input type="number" id="rate" placeholder="Hodinová mzda (€)">
 
 <input type="number" id="night" placeholder="Nočné hodiny">
 
@@ -472,8 +474,6 @@ function calculate(){
 let shift =
 parseFloat(document.getElementById("shift").value);
 
-let days =
-parseFloat(document.getElementById("days").value) || 0;
 
 let rate =
 parseFloat(document.getElementById("rate").value) || 0;
@@ -484,7 +484,20 @@ parseFloat(document.getElementById("night").value) || 0;
 let weekend =
 parseFloat(document.getElementById("weekend").value) || 0;
 
-let totalHours = shift * days;
+let start =
+document.getElementById("start").value;
+
+let end =
+document.getElementById("end").value;
+
+let startTime =
+new Date("1970-01-01 " + start);
+
+let endTime =
+new Date("1970-01-01 " + end);
+
+let totalHours =
+(endTime - startTime) / 1000 / 60 / 60;
 
 let basePay = totalHours * rate;
 
