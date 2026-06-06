@@ -1,182 +1,165 @@
 <!DOCTYPE html>
-
 <html lang="sk">
-
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta charset="UTF-8">
+<title>Cink-Cink</title>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
 
-  <title>Cink-Cink</title>
+body{
+background:#111827;
+color:white;
+font-family:Arial;
+margin:0;
+padding:20px;
+}
 
-  <style>
+.box{
+background:#1f2937;
+padding:20px;
+border-radius:20px;
+max-width:500px;
+margin:auto;
+}
 
-    body {
+h1{
+text-align:center;
+color:#60a5fa;
+}
 
-      background: #111827;
+input,select{
+width:100%;
+padding:14px;
+margin-top:10px;
+border:none;
+border-radius:12px;
+font-size:16px;
+box-sizing:border-box;
+}
 
-      color: white;
+button{
+width:100%;
+padding:15px;
+margin-top:15px;
+background:#2563eb;
+color:white;
+border:none;
+border-radius:12px;
+font-size:17px;
+}
 
-      font-family: Arial;
+.result{
+margin-top:25px;
+background:#111827;
+padding:15px;
+border-radius:12px;
+}
 
-      padding: 20px;
+.result p{
+margin:8px 0;
+font-size:18px;
+}
 
-      margin: 0;
+.money{
+font-size:28px;
+font-weight:bold;
+color:#4ade80;
+text-align:center;
+margin-top:15px;
+}
 
-    }
-
-    .box {
-
-      background: #1f2937;
-
-      padding: 20px;
-
-      border-radius: 16px;
-
-      max-width: 500px;
-
-      margin: auto;
-
-    }
-
-    h1 {
-
-      text-align: center;
-
-      color: #60a5fa;
-
-    }
-
-    select, input {
-
-      width: 100%;
-
-      padding: 12px;
-
-      margin-top: 10px;
-
-      border-radius: 10px;
-
-      border: none;
-
-      font-size: 16px;
-
-    }
-
-    button {
-
-      width: 100%;
-
-      padding: 14px;
-
-      margin-top: 15px;
-
-      background: #2563eb;
-
-      color: white;
-
-      border: none;
-
-      border-radius: 10px;
-
-      font-size: 16px;
-
-    }
-
-    .result {
-
-      margin-top: 20px;
-
-      font-size: 22px;
-
-      text-align: center;
-
-    }
-
-    .shift-info {
-
-      margin-top: 10px;
-
-      text-align: center;
-
-      color: #9ca3af;
-
-    }
-
-  </style>
-
+</style>
 </head>
 
 <body>
 
 <div class="box">
 
-  <h1>💸 Cink-Cink</h1>
+<h1>💸 Cink-Cink</h1>
 
-  <select id="shift">
+<input type="text" id="name" placeholder="Meno zamestnanca">
 
-    <option value="8.5">Ranná (8.5h)</option>
+<select id="shift">
+<option value="8.5">Ranná (8.5h)</option>
+<option value="8.5">Poobedná (8.5h)</option>
+<option value="0">Voľno</option>
+</select>
 
-    <option value="8.5">Poobedná (8.5h)</option>
+<input type="number" id="days" placeholder="Počet dní">
 
-    <option value="0">Voľno</option>
+<input type="number" id="rate" placeholder="Hodinová mzda (€)">
 
-  </select>
+<input type="number" id="night" placeholder="Nočné hodiny">
 
-  <input type="number" id="days" placeholder="Počet odpracovaných dní">
+<input type="number" id="weekend" placeholder="Víkendové dni">
 
-  <input type="number" id="rate" placeholder="Hodinová mzda (€)">
+<button onclick="calculate()">
+Vypočítať
+</button>
 
-  <button onclick="calculate()">
+<div class="result">
 
-    Vypočítať výplatu
+<p id="hours">Odpracované hodiny: 0 h</p>
 
-  </button>
+<p id="nightPay">Nočný príplatok: 0 €</p>
 
-  <div class="shift-info" id="hoursInfo">
+<p id="weekendPay">Víkendový príplatok: 0 €</p>
 
-    Odpracované hodiny: 0 h
+<div class="money" id="total">
+0 €
+</div>
 
-  </div>
-
-  <div class="result" id="result">
-
-    Výplata: 0 €
-
-  </div>
+</div>
 
 </div>
 
 <script>
 
-function calculate() {
+function calculate(){
 
-  let shiftHours =
+let shift =
+parseFloat(document.getElementById("shift").value);
 
-    parseFloat(document.getElementById("shift").value);
+let days =
+parseFloat(document.getElementById("days").value) || 0;
 
-  let days =
+let rate =
+parseFloat(document.getElementById("rate").value) || 0;
 
-    parseFloat(document.getElementById("days").value);
+let night =
+parseFloat(document.getElementById("night").value) || 0;
 
-  let rate =
+let weekend =
+parseFloat(document.getElementById("weekend").value) || 0;
 
-    parseFloat(document.getElementById("rate").value);
+let totalHours = shift * days;
 
-  let totalHours = shiftHours * days;
+let basePay = totalHours * rate;
 
-  let totalPay = totalHours * rate;
+let nightBonus = night * 1.5;
 
-  document.getElementById("hoursInfo").innerHTML =
+let weekendBonus = weekend * 10;
 
-    "Odpracované hodiny: " + totalHours + " h";
+let total =
+basePay + nightBonus + weekendBonus;
 
-  document.getElementById("result").innerHTML =
+document.getElementById("hours").innerHTML =
+"Odpracované hodiny: " + totalHours + " h";
 
-    "Výplata: " + totalPay.toFixed(2) + " €";
-  </script>
+document.getElementById("nightPay").innerHTML =
+"Nočný príplatok: " + nightBonus.toFixed(2) + " €";
+
+document.getElementById("weekendPay").innerHTML =
+"Víkendový príplatok: " + weekendBonus.toFixed(2) + " €";
+
+document.getElementById("total").innerHTML =
+total.toFixed(2) + " €";
+
+}
+
+</script>
 
 </body>
-
 </html>
