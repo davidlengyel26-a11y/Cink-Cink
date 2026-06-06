@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cink-Cink</title>
+
+  <style>
+    body {
+      background: #111827;
+      color: white;
+      font-family: Arial;
+      padding: 20px;
+      margin: 0;
+    }
+
+    .box {
+      background: #1f2937;
+      padding: 20px;
+      border-radius: 16px;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #60a5fa;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 15px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 22px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="box">
+  <h1>💸 Cink-Cink</h1>
+
+  <input type="number" id="hours" placeholder="Odpracované hodiny">
+
+  <input type="number" id="rate" placeholder="Hodinová mzda (€)">
+
+  <button onclick="calculate()">
+    Vypočítať výplatu
+  </button>
+
+  <div class="result" id="result">
+    Výplata: 0 €
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    let hours = document.getElementById("hours").value;
+    let rate = document.getElementById("rate").value;
+
+    let total = hours * rate;
+
+    document.getElementById("result").innerHTML =
+      "Výplata: " + total.toFixed(2) + " €";
+  }
+</script>
+
+</body>
+</html>
